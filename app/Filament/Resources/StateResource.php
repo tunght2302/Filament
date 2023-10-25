@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CountryResource\Pages;
-use App\Filament\Resources\CountryResource\RelationManagers;
-use App\Models\Country;
+use App\Filament\Resources\StateResource\Pages;
+use App\Filament\Resources\StateResource\RelationManagers;
+use App\Models\State;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,24 +13,27 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CountryResource extends Resource
+class StateResource extends Resource
 {
-    protected static ?string $model = Country::class;
+    protected static ?string $model = State::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
 
-    protected static ?string $navigationLabel = 'Country';
+    protected static ?string $navigationLabel = 'State';
     
-    protected static ?string $modelLabel = 'Employees Country';
+    protected static ?string $modelLabel = 'States';
 
     protected static ?string $navigationGroup = 'System Management';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('country_id')
+                    ->required()
+                    ->numeric(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -41,6 +44,9 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('country_id')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -79,10 +85,10 @@ class CountryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCountries::route('/'),
-            'create' => Pages\CreateCountry::route('/create'),
-            'view' => Pages\ViewCountry::route('/{record}'),
-            'edit' => Pages\EditCountry::route('/{record}/edit'),
+            'index' => Pages\ListStates::route('/'),
+            'create' => Pages\CreateState::route('/create'),
+            'view' => Pages\ViewState::route('/{record}'),
+            'edit' => Pages\EditState::route('/{record}/edit'),
         ];
     }    
 }

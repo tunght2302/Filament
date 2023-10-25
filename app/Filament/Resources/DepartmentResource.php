@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CountryResource\Pages;
-use App\Filament\Resources\CountryResource\RelationManagers;
-use App\Models\Country;
+use App\Filament\Resources\DepartmentResource\Pages;
+use App\Filament\Resources\DepartmentResource\RelationManagers;
+use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,19 +13,17 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CountryResource extends Resource
+class DepartmentResource extends Resource
 {
-    protected static ?string $model = Country::class;
+    protected static ?string $model = Department::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
 
-    protected static ?string $navigationLabel = 'Country';
+    protected static ?string $navigationLabel = 'Department';
     
-    protected static ?string $modelLabel = 'Employees Country';
+    protected static ?string $modelLabel = 'Departments';
 
     protected static ?string $navigationGroup = 'System Management';
-
-    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -79,10 +77,10 @@ class CountryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCountries::route('/'),
-            'create' => Pages\CreateCountry::route('/create'),
-            'view' => Pages\ViewCountry::route('/{record}'),
-            'edit' => Pages\EditCountry::route('/{record}/edit'),
+            'index' => Pages\ListDepartments::route('/'),
+            'create' => Pages\CreateDepartment::route('/create'),
+            'view' => Pages\ViewDepartment::route('/{record}'),
+            'edit' => Pages\EditDepartment::route('/{record}/edit'),
         ];
     }    
 }

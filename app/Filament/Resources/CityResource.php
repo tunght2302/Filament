@@ -20,20 +20,23 @@ class CityResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     protected static ?string $navigationLabel = 'City';
-    
+
     protected static ?string $modelLabel = 'City';
 
     protected static ?string $navigationGroup = 'System Management';
 
     protected static ?int $navigationSort = 3;
 
-    public static function form(Form $form): Form   
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('state_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('state_id')
+                    ->relationship(name: 'State', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload()
+                    ->native(false)
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -74,14 +77,14 @@ class CityResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -90,5 +93,5 @@ class CityResource extends Resource
             'view' => Pages\ViewCity::route('/{record}'),
             'edit' => Pages\EditCity::route('/{record}/edit'),
         ];
-    }    
+    }
 }
